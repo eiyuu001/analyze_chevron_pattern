@@ -1,0 +1,6 @@
+{
+  "hampel_filter_threshold": 7.0,
+  "hampel_filter_window_drive_frequency": 7,
+  "hampel_filter_window_time": 7,
+  "peak_strength_thresholds": [2.0, 4.0]
+}

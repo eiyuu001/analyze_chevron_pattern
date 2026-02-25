@@ -1,0 +1,16 @@
+[project]
+name = "analyze-chevron-pattern"
+version = "0.1.0"
+dependencies = [
+  "numpy",
+  "scipy",
+  "plotly",
+  "kaleido",
+  "matplotlib",
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+  "scipy-stubs",
+]
