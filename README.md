@@ -49,17 +49,17 @@ main.pyの出力オプション(複数可)
 
 - `rabi_cycles`: Chevron Patternの時間方向の波数,
 - `quality_level`: 実験結果画像の鮮明さ. 0 ~ <`peak_strength_thresholds`の要素数> の整数で, 高いほど鮮明.,
-- `status`: "OK"か"ERROR". 処理中に例外が発生した場合ERROR, 単にf01やf12が検出できなかっただけの場合はOKになる.
+- `status`: "OK"か"ERROR". 処理中に例外が発生した場合ERROR, 単にChevron Patternが確認できなかっただけの場合はOKになる.
 - `error`: 処理中に発生した例外のエラーメッセージ.
 
 #### Chevron Patternが確認できる場合
 
 Chevron Patternが確認できる場合, `quality_level > 0` となる.
 
-```
+```json
 {
   "rabi_cycles": 3,
-  "quality_level": 3,
+  "quality_level": 2,
   "status": "OK",
   "error": null
 }
@@ -71,7 +71,7 @@ Chevron Patternが確認できない場合, `quality_level = 0` となる.
 ただし, 分析自体は成功しているので `status = OK` となる.
 この場合でもrabi_cyclesには一応推定した値が入ることに注意.
 
-```
+```json
 {
   "rabi_cycles": 9,
   "quality_level": 0,
@@ -84,7 +84,7 @@ Chevron Patternが確認できない場合, `quality_level = 0` となる.
 
 コンフィグファイルの値が不正なときや, 入力ファイルにNaNが含まれている場合などに例外が発生する. `status = ERROR` となる.
 
-```
+```json
 {
   "rabi_cycles": null,
   "quality_level": null,
