@@ -41,7 +41,7 @@ uv run src/main.py -c config.json -f /path/to/data.json --json
 
 main.pyの出力オプション(複数可)
 
-- `--image-dir <image_dir>`: <image_dir>に元画像・スパイクノイズ位置画像・スペクトル画像を出力する.
+- `--image-dir <image_dir>`: <image_dir>に元画像・スパイクノイズ位置画像・スパイクノイズ除去済み画像・スペクトル画像を出力する.
 - `--plot`: スペクトル画像をブラウザで表示する.
 - `--json`: 分析結果をjsonで出力する(詳しくは[以下](#json出力について)参照).
 

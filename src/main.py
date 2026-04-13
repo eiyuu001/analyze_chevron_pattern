@@ -233,6 +233,11 @@ def process_data(
             os.path.join(image_dir_base, f'qubit_{qubit_idx}_4_fft_folded.png')
         )
 
+        fig5 = create_figure(data, chevron_pattern.zs_despiked.astype(int))
+        fig5.write_image(
+            os.path.join(image_dir_base, f'qubit_{qubit_idx}_5_despiked.png')
+        )
+
     if plot:
         chevron_pattern.plot_fft_folded()
 
