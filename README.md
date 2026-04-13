@@ -2,7 +2,7 @@
 
 1. Hampelフィルタを用いてスパイクノイズを除去. ウィンドウサイズ: `[hampel_filter_window_time, hampel_filter_window_drive_frequency]`, 閾値: `hampel_filter_threshold`
 2. 二次元フーリエ変換によりスペクトル情報に変換.
-3. スペクトルを入力周波数方向に平均し, 時間方向のスペクトルを計算.
+3. スペクトルを入力周波数方向に0 ~ `time_spectrum_freq_band_max`(この値を含む)の範囲で平均し, 時間方向のスペクトルを計算.
 4. 3からDC成分(波数0成分)を除去.
 5. 4のピーク位置をChevron Patternの時間方向の波数(`rabi_cycles`)とみなす.
 6. 4のピーク位置の成分の, 4の中央値に対する比をピークの強さ(`peak_strength`)とみなす.
@@ -23,6 +23,7 @@ quality_level = 2:  4.0 < s            問題なく確認可
 - `hampel_filter_threshold`: Hampelフィルタによるノイズ除去の閾値. この値が低いほど強くノイズが除去される.
 - `hampel_filter_window_drive_frequency`: Hampelフィルタのウィンドウサイズ(入力周波数方向).
 - `hampel_filter_window_time`: Hampelフィルタのウィンドウサイズ(時間方向).
+- `time_spectrum_freq_band_max`: 時間方向スペクトル計算の際の, 平均を取る入力周波数方向の範囲の最大値(この値を含む).
 - `peak_strength_thresholds`: quality_levelの算出に使う閾値. 詳しくは[`quality_level`について](#quality_levelについて)を参照.
 
 ## インストール

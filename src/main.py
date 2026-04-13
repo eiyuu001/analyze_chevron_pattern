@@ -11,6 +11,7 @@ from typing import (
 )
 import plotly.graph_objects as go
 import numpy as np
+import numpy.typing as npt
 import scipy.ndimage
 import scipy.fft
 import matplotlib.pyplot as plt
@@ -32,6 +33,7 @@ class ChevronPatternConfig:
     hampel_filter_threshold: float
     hampel_filter_window_drive_frequency: int
     hampel_filter_window_time: int
+    time_spectrum_freq_band_max: int
     peak_strength_thresholds: Sequence[float]
 
     def __post_init__(self):
@@ -46,6 +48,9 @@ class ChevronPatternConfig:
 
         if self.hampel_filter_window_time <= 0:
             raise ValueError('hampel_filter_window_time must be positive')
+
+        if self.time_spectrum_freq_band_max <= 0:
+            raise ValueError('time_spectrum_freq_band_max must be positive')
 
         if len(self.peak_strength_thresholds) == 0 or any(
             b <= a for a, b in itertools.pairwise(self.peak_strength_thresholds)
@@ -88,12 +93,12 @@ class ChevronPattern:
         return self._despike_result[1]
 
     @functools.cached_property
-    def spectrum(self):
+    def spectrum(self) -> npt.NDArray[np.complex128]:
         res = scipy.fft.rfft2(self.zs_despiked, axes=(1, 0))
         return res
 
     @functools.cached_property
-    def spectrum_folded(self):
+    def spectrum_folded(self) -> npt.NDArray[np.float64]:
         magnitude = np.abs(self.spectrum)
         magnitude += np.flip(magnitude, axis=1)
         magnitude = magnitude[:, : magnitude.shape[1] // 2]
@@ -101,7 +106,10 @@ class ChevronPattern:
 
     @functools.cached_property
     def spectrum_time(self):
-        return np.mean(np.abs(self.spectrum), axis=1)
+        return np.mean(
+            self.spectrum_folded[:, : self.config.time_spectrum_freq_band_max + 1],
+            axis=1,
+        )
 
     @functools.cached_property
     def rabi_cycles(self):
